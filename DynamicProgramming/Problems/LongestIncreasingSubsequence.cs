@@ -14,7 +14,7 @@ namespace DynamicProgramming
         {
             Console.WriteLine("Longest Increasing Subsequence is running");
 
-            var inputString = File.ReadAllLines(@"..\LongestIncreasingSubsequenceInput.csv");
+            var inputString = File.ReadAllLines(@".\Resources\LongestIncreasingSubsequenceInput.csv");
             int[] inputSequence = new int[inputString.Length];
             for(int i=0; i<inputString.Length;i++)
             {
@@ -23,7 +23,8 @@ namespace DynamicProgramming
             //int[] inputSequence = new int[] { 10, 22, 9, 33, 21, 50, 41, 60 };
             
             //Recurssion(inputSequence);
-            Memoization(inputSequence);
+            //Tabulation(inputSequence);
+            OptimizedAlgo(inputSequence);
         }
 
         #region Recurssion
@@ -89,16 +90,17 @@ namespace DynamicProgramming
 
         #endregion
 
-        #region Memoization
+        #region Tabulation
 
         Dictionary<int, int> increasingSubSequenceLength = new Dictionary<int, int>(); 
-        private void Memoization(int[] inputSequence)
+        private void Tabulation(int[] inputSequence)
         {
+            Console.WriteLine("\n\nLIS using Tabulation:");
             Stopwatch sc = new Stopwatch();
             sc.Start();
             for(int i= inputSequence.Length - 1; i>=0; i--)
             {
-                MemoizationInternal(i, inputSequence);
+                TabulationInternal(i, inputSequence);
             }
             sc.Stop();
 
@@ -106,7 +108,7 @@ namespace DynamicProgramming
             Console.WriteLine("Time taken: " + sc.Elapsed.ToString("G"));
         }
 
-        private void MemoizationInternal(int startIndex, int[] inputSequence)
+        private void TabulationInternal(int startIndex, int[] inputSequence)
         {
             if(startIndex == inputSequence.Length - 1)
             {
@@ -121,6 +123,58 @@ namespace DynamicProgramming
                     if(increasingSubSequenceLength[startIndex] <= increasingSubSequenceLength[nextIndex])
                     {
                         increasingSubSequenceLength[startIndex] = increasingSubSequenceLength[nextIndex]+1;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Optimized Algorithm
+
+        private IList<int> longestIncreasingSubsequenceList = new List<int>();
+
+        private void OptimizedAlgo(int[] arr)
+        {
+            Console.WriteLine("\n\nLIS using Optimized Algo:");
+            Stopwatch sc = new Stopwatch();
+            sc.Start();
+            longestIncreasingSubsequenceList.Add(arr[arr.Length - 1]);
+            for(int i= arr.Length - 2; i>=0; i--)
+            {
+                OptimizedAlgoInternal(arr[i]);
+            }
+            sc.Stop();
+
+            Console.WriteLine("Result: " + longestIncreasingSubsequenceList.Count);
+            Console.WriteLine("Time taken: " + sc.Elapsed.ToString("G"));
+        }
+
+        private void OptimizedAlgoInternal(int value)
+        {
+            if(longestIncreasingSubsequenceList[0] <= value)
+            {
+                longestIncreasingSubsequenceList[0] = value;
+                return;
+            }
+            
+            int i = longestIncreasingSubsequenceList.Count - 1;
+            for( ; i >=0 ; i--)
+            {
+                if(longestIncreasingSubsequenceList[i] > value)
+                {
+                    if(longestIncreasingSubsequenceList.Count > i + 1)
+                    {
+                        if(longestIncreasingSubsequenceList[i + 1] < value)
+                        {
+                            longestIncreasingSubsequenceList[i+1] = value;
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        longestIncreasingSubsequenceList.Add(value);
+                        return;
                     }
                 }
             }
