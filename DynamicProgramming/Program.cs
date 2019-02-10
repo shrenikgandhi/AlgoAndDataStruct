@@ -6,7 +6,7 @@ namespace DynamicProgramming
     {
         static void Main(string[] args)
         {
-            IRun program = new Fibonacci();
+            IRun program = new ModifiedFibonacci();
             program.Run();
             Console.WriteLine("\n\nExecution Completed!");
         }
