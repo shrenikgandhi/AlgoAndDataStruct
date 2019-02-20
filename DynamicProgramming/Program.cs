@@ -6,7 +6,7 @@ namespace DynamicProgramming
     {
         static void Main(string[] args)
         {
-            IRun program = new ModifiedFibonacci();
+            IRun program = new MaxSubArray();
             program.Run();
             Console.WriteLine("\n\nExecution Completed!");
         }

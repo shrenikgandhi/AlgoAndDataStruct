@@ -14,7 +14,7 @@ namespace DynamicProgramming
         {
             Console.WriteLine("Longest Increasing Subsequence is running");
 
-            var inputString = File.ReadAllLines(@".\Resources\LongestIncreasingSubsequenceInput.csv");
+            var inputString = File.ReadAllLines(@".\Resources\LongestIncreasingSubsequenceInput.txt");
             int[] inputSequence = new int[inputString.Length];
             for(int i=0; i<inputString.Length;i++)
             {
