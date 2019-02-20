@@ -6,7 +6,7 @@ namespace DynamicProgramming
     {
         static void Main(string[] args)
         {
-            IRun program = new MaxSubArray();
+            IRun program = new MaximizeStock();
             program.Run();
             Console.WriteLine("\n\nExecution Completed!");
         }
