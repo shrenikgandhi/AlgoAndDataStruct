@@ -6,7 +6,7 @@ namespace DynamicProgramming
     {
         static void Main(string[] args)
         {
-            IRun program = new MaximizeStock();
+            IRun program = new NewYearChaos();
             program.Run();
             Console.WriteLine("\n\nExecution Completed!");
         }
